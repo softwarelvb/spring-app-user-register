@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: collect
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+  boot:
+    admin:
+      client:
+        url: http://localhost:8080
+        enabled: true
+        auto-registration: true
+        instance:
+         name: "resgister-user-services"
+server:
+  port: 8085
+
+# Kafka producer configuration
+spring.kafka:
+  producer:
+    bootstrap-servers: localhost:9092  # Replace with your Kafka broker address
+    key-serializer: org.springframework.kafka.support.serializer.JsonSerializer  # JSON serialization for keys (optional)
+    value-serializer: org.springframework.kafka.support.serializer.JsonSerializer  # JSON serialization for values
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
