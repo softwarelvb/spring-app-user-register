@@ -27,4 +27,12 @@ public class CustomerController {
         kafkaTemplate.send("test", savedCustomer);  // Example using CustomerDTO
         return new ResponseEntity<>(savedCustomer, HttpStatus.CREATED);
     }
+
+    @PostMapping("/transfer")
+    public ResponseEntity<Customer> TransferMoney(@RequestBody Customer customer) {
+        Customer savedCustomer = customerRepository.save(customer);
+        kafkaTemplate.send("request-transfer", savedCustomer);  // Example using CustomerDTO
+        return new ResponseEntity<>(savedCustomer, HttpStatus.CREATED);
+    }
+
 }
